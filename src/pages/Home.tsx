@@ -1,24 +1,27 @@
 // import { Link } from 'react-router-dom'
 
-import AboutSection from "../component/AboutSection"
-import Ascrolling from "../component/Ascrolling"
-import Faq from "../component/FAQ"
-import Herotitle from "../component/Herotitle"
-import Navbar from "../component/Navbar"
-// import Numbers from "../component/Numbers"
-import Slider from "../component/Slider"
-// import Training from "../component/training"
-import bg from "../assets/white-marble-stone-background-texture-pattern-free-photo.webp"
-import Contact from "../component/Contact"
+import  { lazy, Suspense } from "react";
+// import Training from "../component/Training";
+
+// Dynamic imports using React.lazy
+const AboutSection = lazy(() => import("../component/AboutSection"));
+const Ascrolling = lazy(() => import("../component/Ascrolling"));
+const Faq = lazy(() => import("../component/FAQ"));
+const Herotitle = lazy(() => import("../component/Herotitle"));
+const Navbar = lazy(() => import("../component/Navbar"));
+const Slider = lazy(() => import("../component/Slider"));
+const Contact = lazy(() => import("../component/Contact"));
+// import bg from "../assets/white-marble-stone-background-texture-pattern-free-photo.webp"
 
 function Home() {
   return (
+    <Suspense fallback={<div className="w-full h-screen bg-lightBlack flex justify-center items-center"><p className="text-orange">Loading...</p></div>}>
     <div className="w-full min-h-screen  bg-lightBlack">
         <Navbar />
-        <div className="w-full flex justify-center relative items-center h-[calc(100vh-82px)] bg-orange flex-col md:flex-row-reverse  ">
-          <span className=" opacity-5 absolute w-full h-full left-0 top-0"> 
-            <img src={bg} className="w-full h-full object-cover" alt="" />
-          </span>
+        <div className="div w-full flex justify-center relative items-center h-[calc(100vh-82px)] bg-orange flex-col md:flex-row-reverse  ">
+          {/* <span className=" opacity-5 absolute w-full h-full left-0 top-0"> 
+            <img src={bg} className="w-full h-full object-cover" alt="" loading="lazy" />
+          </span> */}
           <div className="flex-1 h-full w-full  ">
           <Slider />
           </div>
@@ -27,12 +30,19 @@ function Home() {
           </div>
         </div>
         <AboutSection />
-        {/* <Numbers /> */}
-        <Contact />
         <Faq />
+        <div id="contact">
+  <Contact />
+</div>
+       <div id="review">
+
         <Ascrolling />
+       </div>
+       
         {/* <Training /> */}
+        
     </div>
+    </Suspense>
   )
 }
 

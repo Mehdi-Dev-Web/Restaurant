@@ -1,4 +1,4 @@
-import picOne from "../assets/steptodown.com459191.jpg";
+import picOne from "../assets/newone.jpg";
 import picTwo from "../assets/steptodown.com271455.jpg";
 import picThree from "../assets/steptodown.com282041.jpg";
 import { useEffect, useState } from "react";
@@ -22,12 +22,12 @@ function Slider() {
             <AnimatePresence>
                 <motion.img
                     key={num}
-                    initial={ isstart && { opacity: .5 , filter: "blur(0px)" }} // Start off-screen on the right
+                    initial={ isstart && { opacity: .5 }} // Start off-screen on the right
                     animate={{ opacity: 1 }}   // Move to the center
                     exit={{ opacity: 0  }}   // Move off-screen to the left
                     transition={{ duration: .8, ease: "easeInOut" }}
                     src={allPic[num]}
-                    alt=""
+                    alt="pic"
                     className="w-full h-full absolute bottom-0 object-cover"
                     loading="lazy"
                     onLoad={()=>setIsstart(true)}

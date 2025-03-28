@@ -1,33 +1,25 @@
 
-// import { useState } from "react"
 
-import Dishes from "../component/Dishes"
+import { lazy } from "react"
+import pic from "../assets/cea1f33939d394de0e531d29bc976ec7.jpg"
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 
-// import picthree from "../assets/steptodown.com459191.jpg"
+const Dishes = lazy(()=>import("../component/Dishes"))
+
 function Menu() {
-    // const [caty , setCaty] = useState("all")
    
   return (
-    <div className="bg-lightBlack w-full  min-h-screen px-3 md:px-24 ">
-        {/* <div className="flex gap-2 text-white"> <p onClick={()=>setCaty("all")}>all</p> <p onClick={()=>setCaty("app")}>app</p> <p onClick={()=>setCaty("pizza")}>pizza</p></div> */}
-     {/* {Data.map((item,index)=>(
-        <div key={index}>
-        <h1 className="text-white">{item.nameof}</h1>
-        <div className="flex gap-3">
-            {item.cat.map((item,index)=>(
-                <div key={index} className="flex flex-col bg-white">
-                    <h1>{item.name}</h1>
-                    <div>{item.price}</div>
-                   <img src={item.img} alt="" />
-                    
-                </div>
-            ))}
-        </div>
-        </div>
-     ))}
-       */}
-       <Dishes />
+    <div className="bg-lightBlack w-full  min-h-screen ">
+      <div className="w-full h-[80vh] relative ">
+        <img src={pic} loading="lazy" alt="" className="w-full h-full object-cover " />
+        <div className="w-full h-[30px]  gradient-bg  z-10 absolute bottom-0"></div>
+          <IoArrowBackCircleOutline className="text-white text-4xl cursor-pointer z-10 absolute top-5 left-8 " />
+        <div className="text-orange  text-6xl translate-[-50%] font-Lobster z-10 absolute top-1/2 left-1/2"> Menu</div>
 
+      </div>
+  <div className="w-full px-3 md:px-24 mt-3">
+       <Dishes />
+  </div>
     </div>
   )
 }

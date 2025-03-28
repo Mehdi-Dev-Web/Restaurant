@@ -1,5 +1,6 @@
 import { easeInOut } from "framer-motion"
 import { motion, AnimatePresence } from "framer-motion"
+import React from "react"
 
 type Tp = {
     isappear: boolean
@@ -31,4 +32,5 @@ function NavMobile({isappear}: Tp) {
   )
 }
 
-export default NavMobile
+const MemoizedNavMobile = React.memo(NavMobile);
+export default MemoizedNavMobile;

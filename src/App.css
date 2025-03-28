@@ -3,3 +3,16 @@
     font-family: "Inter", serif;
  
 }
+/* .inp:focus+.,
+.inp:valid+.lable{
+    font-size: small;
+    /* cursor: auto; */
+    /* color: red;
+    top: 0px; */
+/* } */ 
+.gradient-bg {
+    background: linear-gradient(to bottom, transparent, #1A1A1A);
+    height: 100vh; /* Adjust as needed */
+    width: 100%;
+  }
+

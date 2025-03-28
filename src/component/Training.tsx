@@ -22,3 +22,16 @@
    }
 </motion.div>
 </div> */}
+
+function Training() {
+  return (
+    <div className="w-full h-screen flex justify-center items-center">
+        <div className="relative w-auto wrapper ">
+            <input type="text" placeholder="yourname" name="" id="" 
+            className="h-[40px] inp  w-[200px] bg-white relative border-[1px] border-black outline-none text-black text-sm focus:placeholder:text-sm  focus:placeholder:absolute  focus:placeholder:bottom-5  " />
+        </div>
+    </div>
+  )
+}
+
+export default Training

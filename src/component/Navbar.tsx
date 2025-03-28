@@ -1,22 +1,42 @@
 
-import { useState } from "react";
+import { lazy, useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo-pfe-res-white.png";
-import NavMobile from "./NavMobile";
 import {motion,useScroll,useMotionValueEvent} from "framer-motion"
+import { FaRegUserCircle } from "react-icons/fa";
+
+const MemoizedNavMobile = lazy(()=>import("./NavMobile"))
 
 
 function Navbar() {
+
   const [isappear, setIsappear] = useState(false);
   const[ isshow,setIsshowe] = useState(true)
+
  const {scrollY}= useScroll()
  useMotionValueEvent(scrollY,"change",(latest)=>{
   const previous = scrollY.getPrevious();
   if(previous !== undefined && latest > previous && latest > 70 ){
-    setIsshowe(false)
-  }else     setIsshowe(true)
+      setIsshowe(false)
+  }else setIsshowe(true)
  })
+  const handle = (e)=>{
+    e.preventDefault()
+    if(e == "rev"){
+      window.scrollTo({
+        top: 2200,
+        behavior:"smooth"
+    
+      });
+    } else if(e == "con") {
+      window.scrollTo({
+        top: 1500,
+        behavior:"smooth"
+    
+      });
+    }
+  }
   return (
 
     <motion.div 
@@ -31,46 +51,65 @@ function Navbar() {
 
       {/* Navigation Links */}
       <ul className="hidden md:flex flex-1/2  font-normal  justify-start gap-10 items-center text-brown  ">
-        <li className="cursor-pointer hover:border-b-[1px] hover:border-orange font-Montserrat ">
+       <Link to='/'>
+       <li className="cursor-pointer hover:border-b-[1px] hover:border-orange font-Montserrat ">
           Home
         </li>
-        <li className="cursor-pointer hover:border-b-[1px] hover:border-orange">
+       </Link> 
+
+      <Link to="about">
+      <li className="cursor-pointer hover:border-b-[1px] hover:border-orange">
           About us
         </li>
-        <li className="cursor-pointer hover:border-b-[1px] hover:border-orange">
+      </Link>
+
+       <Link to="/menu">
+       <li className="cursor-pointer hover:border-b-[1px] hover:border-orange">
           Menu
         </li>
-     
-       
+       </Link>
+
+      
+          <li className="cursor-pointer hover:border-b-[1px] hover:border-orange font-Montserrat ">
+           <a href="#contact" onClick={()=>handle("con")}>Contact</a> 
+           </li>
+    
+      
       </ul>
       {/* Logo */}
       <div className="h-full  w-[80px]  lg:w-[100px]  flex items-center">
         <Link to="/">
-          <img src={logo} alt="logo" className="object-cover cursor-pointer  " />
+          <img src={logo} alt="logo" loading="lazy" className="object-cover cursor-pointer  " />
         </Link>
       </div>
 
       {/* Action Buttons */}
       <ul className="hidden md:flex flex-1/2  font-normal  justify-end gap-10 items-center text-brown  ">
-        <li className="cursor-pointer hover:border-b-[1px] hover:border-orange font-Montserrat ">
-          Contact
-        </li>
+       
       
         <li className="cursor-pointer hover:border-b-[1px] hover:border-orange">
-          Review
+          galory
         </li>
         <li className="cursor-pointer hover:border-b-[1px] hover:border-orange">
-          +212 637476467
+         <a href="#review" onClick={()=>handle("rev")}>review</a> 
+        </li>
+        <li className="cursor-pointer hover:border-b-[1px] hover:border-orange">
+         <a href="https://www.whatsapp.com/">+212 637476467</a> 
+        </li>
+        <li>
+        <Link to="/login">
+        <FaRegUserCircle  className="text-white text-2xl cursor-pointer"/>
+        </Link>
         </li>
       </ul>
         <IoMdMenu
           onClick={() => setIsappear(!isappear)}
-          className="text-5xl md:hidden text-gray-300"
+          className="text-5xl md:hidden text-gray-200"
         />
      
 
       {/* Mobile Navigation Menu */}
-      <NavMobile isappear={isappear} />
+      <MemoizedNavMobile isappear={isappear} />
     </motion.div>
   );
 }

@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 
 interface Dish {
@@ -25,13 +26,13 @@ const Similar: React.FC<SimilarProps> = ({ similar }) => {
       <div className="w-full max-w-6xl flex flex-col gap-6 px-4 md:px-0 ">
         <h1 className="text-4xl font-Poppins text-white font-medium">Similar Dishes</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {similar.map((sim) => (
-            <Link  onClick={handlescrolling} to={`/menu/${sim.type}/${sim.id}`}>
-              <div className="bg-white rounded-lg overflow-hidden shadow-md">
-                <img src={sim.img} alt="" className="w-full object-cover" />
+          {similar.map((sim,index) => (
+            <Link onClick={handlescrolling} key={index} to={`/menu/${sim.type}/${sim.id}`}>
+              <div className="bg-orange rounded-lg overflow-hidden shadow-md">
+                <img src={sim.img} alt="" loading="lazy" className="w-full object-cover" />
                 <div className="flex justify-between items-center px-4 pb-4 pt-2">
-                  <h1 className="text-lg font-semibold">{sim.name}</h1>
-                  <p className="text-orange font-bold">${sim.price}</p>
+                  <h1 className="text-lg text-black font-semibold">{sim.name}</h1>
+                  <p className="text-black font-bold">$ {sim.price}</p>
                 </div>
               </div>
             </Link>
@@ -41,4 +42,5 @@ const Similar: React.FC<SimilarProps> = ({ similar }) => {
   )
 }
 
-export default Similar
+const MemoizedSimilar = React.memo(Similar);
+export default MemoizedSimilar;

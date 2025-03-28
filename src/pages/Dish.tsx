@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import {  useParams } from "react-router-dom";
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import supabase from "../data/supa";
-import Similar from "../component/Similar";
+const MemoizedSimilar = lazy(()=>import("../component/Similar"))
 
 
 function Dish() {
@@ -56,11 +56,12 @@ const similar = data
   .filter((dish) => dish.id !== dishId).slice(0, 3);
 
     return (
-      <div className="w-full min-h-screen bg-lightBlack flex flex-col items-center px-4 md:px-0">
+      <div className="w-full min-h-screen bg-lightBlack flex flex-col items-center px-4 pb-12 md:px-0">
       <div className="w-full max-w-6xl min-h-screen flex flex-col md:flex-row md:items-center gap-6">
         <img
           src={dish.img}
-          alt=""
+          loading="lazy"
+          alt="pic"
           className="w-full h-[500px] md:w-1/2 object-cover flex-1"
         />
         {/* details about dish */}
@@ -96,10 +97,10 @@ const similar = data
             </Stack>
           </div>
           <div className="w-full flex gap-3 items-center">
-            <button className="w-[140px] text-center bg-orange text-white py-3 rounded-md text-lg font-semibold">
+            <button className="w-[140px] text-center bg-orange text-black py-3 rounded-md text-lg font-semibold">
               Reservation
             </button>
-            <button className="w-[140px] text-center bg-transparent border-2 border-orange text-white py-3 rounded-md text-lg font-semibold">
+            <button className="w-[140px] text-center bg-transparent border-2 border-white text-white py-3 rounded-md text-lg font-semibold">
               Menu
             </button>
           </div>
@@ -107,7 +108,7 @@ const similar = data
       </div>
 
       {/* Similar Dishes */}
-    <Similar similar={similar}/>
+    <MemoizedSimilar similar={similar}/>
     </div>
     );
 }
