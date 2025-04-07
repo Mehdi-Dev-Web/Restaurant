@@ -1,14 +1,15 @@
 
-import { MdArrowOutward } from "react-icons/md";
-
+// import { MdArrowOutward } from "react-icons/md";
+import ShinyText from './ShinyText';
 import { Link } from "react-router-dom"
+
 //   
 import {motion } from "framer-motion"
 function Herotitle() {
   return (
       <div className=" text-center md:text-left">
         <h1 className=" text-4xl md:text-6xl font-medium text-black font-Lobster ">
-          Perfection in taste 
+        Perfection in taste 
           <br />
           art in every bite 
           <br />
@@ -25,8 +26,9 @@ function Herotitle() {
           </p>
 
           <Link to="/booking" >
-          <button className="px-8 text-sm py-2.5 rounded-md bg-lightBlack text-orange mt-11 flex justify-center gap-2 items-center cursor-pointer hover:border-2 hover:border-lightBlack hover:bg-transparent hover:text-lightBlack ">
-            <span>Booking</span><MdArrowOutward/>
+          <button className="px-8 text-sm py-2.5 rounded-md bg-black text-orange mt-11 flex justify-center gap-2 items-center cursor-pointer  ">
+          {/* // add an animation to the button */}
+          <ShinyText text="book a table" disabled={false} speed={3} className='custom-class' />
             </button>
           </Link>
 </div>

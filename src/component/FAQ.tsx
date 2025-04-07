@@ -38,7 +38,7 @@ function Faq() {
 
            {/* // Question and Answer */}
            <div className="w-full bg-lightBlack">
-
+           
            <QS data={data} num={num} Toggle={Toggle} />
            </div>
         

@@ -2,11 +2,13 @@ import { easeInOut } from "framer-motion"
 import { motion, AnimatePresence } from "framer-motion"
 import React from "react"
 
-type Tp = {
-    isappear: boolean
+
+type NavProps = {
+    isappear: boolean 
 }
 
-function NavMobile({isappear}: Tp) {
+// Mobile navigation menu component
+function NavMobile({isappear}: NavProps) {
   return (
     <>
       <AnimatePresence>
@@ -19,10 +21,12 @@ function NavMobile({isappear}: Tp) {
             transition={{ duration: 0.6, ease: easeInOut }}
             className="absolute w-full h-[420px] flex flex-col justify-center items-center  text-2xl bg-lightBlack text-light bottom-[-420px] z-10"
           > 
+            {/* Navigation links but still not working  i'm gonna add links to them*/}
             <ul className="flex flex-col justify-center items-center gap-10 font-semibold text-2xl text-white">
               <li className="cursor-pointer hover:border-b-2 hover-border-brown">Home</li>
               <li className="cursor-pointer hover:border-b-2 hover-border-brown">About</li>
               <li className="cursor-pointer hover:border-b-2 hover-border-brown">Menu</li>
+              <li className="cursor-pointer hover:border-b-2 hover-border-brown">Contact</li>
               <li className="cursor-pointer hover:border-b-2 hover-border-brown">Contact</li>
             </ul>
           </motion.div>
@@ -32,5 +36,6 @@ function NavMobile({isappear}: Tp) {
   )
 }
 
+// Memoized version of NavMobile
 const MemoizedNavMobile = React.memo(NavMobile);
 export default MemoizedNavMobile;

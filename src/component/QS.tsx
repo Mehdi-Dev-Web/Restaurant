@@ -1,11 +1,13 @@
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleDown } from "react-icons/fa";
 import { motion } from "framer-motion";
+
 type Dt = {
     id : number
     question : string
     answer : string
   }
+
 type Dprop = {
     data : Dt[]
     num: number | null
@@ -23,6 +25,9 @@ function QS({data,num,Toggle}:Dprop) {
         y:0,
       }
     }
+
+    //? divide the data into two parts to handle drop down and up for each side alone 
+    
   return (
     <div className="flex flex-col  w-[90%] md:flex-row lg:w-[80%] md:gap-10  justify-between mx-auto mt-12 ">
     {/* left side */}

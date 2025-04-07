@@ -1,8 +1,10 @@
 import picOne from "../assets/newone.jpg";
-import picTwo from "../assets/steptodown.com271455.jpg";
-import picThree from "../assets/steptodown.com282041.jpg";
+import picTwo from "../assets/steptodown.com210542.jpg";
+import picThree from "../assets/pexels-pixabay-260922.jpg";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+//? this is a component that is used to display a slider of images
 
 const allPic = [picOne, picTwo, picThree];
 

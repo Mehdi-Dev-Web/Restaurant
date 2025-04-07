@@ -4,6 +4,8 @@ type Dt = {
     answer : string
   }
 
+//? this is a data array that is used to display the FAQ section i will change it to fit with real questions and answers
+
 const data: Dt[] = [
   {
     id: 0,

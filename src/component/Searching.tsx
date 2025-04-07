@@ -1,11 +1,15 @@
 import { IoClose } from "react-icons/io5";
 import { motion  } from "framer-motion";
 import React from "react";
+
 type Tp = {
     setV: (thing : string)=> void
     setIsSearching:(thing:boolean)=>void
     v:string
 }
+
+//? this is a component that is used to search for a dish by name
+
 function Searching({setIsSearching,setV,v}:Tp) {
     
   return (
@@ -15,6 +19,8 @@ function Searching({setIsSearching,setV,v}:Tp) {
      </motion.div>
   )
 }
+
+//? memoized the component to prevent re-rendering
 
 const MemoizedSearching = React.memo(Searching);
 export default MemoizedSearching;

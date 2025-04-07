@@ -4,18 +4,7 @@ import pic from "../assets/steptodown.com271455.jpg"
 import { Link } from "react-router-dom";
 import { useMenu } from "../data/Fetching";
 const Filtring = lazy(()=>import("./Filtring"))
-// interface Dish {
-//   id: number;
-//   name: string;
-//   price: number;
-//   smallDescription: string;
-//   img: string 
-// }
 
-// interface Category {
-//   category_name: string;
-//   category: Dish[];
-// }
 
 function Dishes() {
     
@@ -24,7 +13,7 @@ function Dishes() {
     const [caty, setCaty] = useState("all")
     const [v, setV] = useState("")
     const [isSearching, setIsSearching] = useState(false);
-  
+  // i already change the database structure to make it easier for crud operations but didn't update the code yet so this is the old code
     const { data, isLoading, error } = useMenu();
 
     if (isLoading) return <div className="w-full h-screen bg-lightBlack flex justify-center items-center"><p className="text-orange">Loading...</p></div>;
@@ -67,22 +56,29 @@ function Dishes() {
             <div key={index}>
             <h1 className="text-white text-4xl mb-2 mt-2 font-Lobster">{items.category_name}</h1>
             <div className="grid grid-cols-1 md:grid-cols-2  gap-2" >
+
             {items.category.map((item,index)=>(
-                <Link to={`/menu/${items.category_name}/${item.id}`} key={index}>
-                <div  className="w-full md:max-w-[560px]  max-h-[135px] bg-transparent border-orange border-[1px] flex  mt-2  rounded-md  ">
-                    <div className="flex-1  flex justify-center items-center pl-2 md:pl-0 ">
-                     <img src={item.img || pic} className="object-cover w-[140px] h-[100px] rounded-sm" alt=""  loading="lazy"/>
-                  
-                    </div>
-                    <div className="flex-2 w-full h-full gap-2 flex flex-col justify-between p-3 text-white">
-                        <h1 className="text-xl font-medium">{item.name}</h1>
-                        <p className="text-sm text-gray-300">{item.smallDescription}</p>
-                        <p className="text-orange">${" "}{item.price.toFixed(2)}</p>
+      
+         <Link to={`/menu/${items.category_name}/${item.id}`} key={index}>
+         <div className="w-full md:max-w-[560px] max-h-[135px] bg-[#1F1F1F] hover:bg-[#2a2a2a] transition-all duration-300 border-orange border-[1px] flex mt-2 rounded-md overflow-hidden hover:shadow-md hover:shadow-orange/20 group">
+             <div className="w-[140px] h-[135px] overflow-hidden">
+                 <img 
+                     src={item.img || pic} 
+                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" 
+                     alt={item.name}  
+                     loading="lazy"
+                 />
+             </div>
+             <div className="flex-1 flex flex-col gap-1.5 justify-between p-4 text-white">
+                 <div>
+                     <h1 className="text-xl font-medium mb-1 group-hover:text-orange transition-colors">{item.name}</h1>
+                     <p className="text-sm text-gray-400 line-clamp-2 mt-2">{item.smallDescription}</p>
+                 </div>
+                 <p className="text-orange font-semibold text-md">${item.price.toFixed(2)}</p>
+             </div>\
+         </div>
+         </Link>
 
-                    </div>
-
-                </div>
-                </Link>
             ))}
             </div>
 
@@ -98,54 +94,5 @@ function Dishes() {
 }
 
 export default Dishes
-// const Data = [ 
-    //     {
-        
-    //        categoryName : "Appetizers",
-    //          cat : [{
-    //        id:0,
-    //            name: "Mozzarella Sticks",
-    //            price : 6.99,
-    //            smallDescription : "Crispy, golden-fried mozzarella sticks served with marinara sauce.",
-    //            largeDescription : 
-    //            "Melt-in-your-mouth mozzarella cheese coated in a crispy golden breadcrumb crust, deep-fried to perfection. Served with a side of house-made marinara sauce for dipping.",
-    //          
-    //   Ingredients : ["Mozzarella Cheese", "Breadcrumbs", "Marinara Sauce", "Vegetable Oil"],
-    //            Size: "6 pieces",
-    //            img: pic
-    //         },
-    //         {
-    //         id:1,
-    //        name: " Mozzarella Sticks",
-    //        price : 5,
-    //        smallDescription : "Crispy, golden-fried mozzarella sticks served with marinara sauce.",
-    //        largeDescription : 
-    //        "Melt-in-your-mouth mozzarella cheese coated in a crispy golden breadcrumb crust, deep-fried to perfection. Served with a side of house-made marinara sauce for dipping.",
-    //        Ingredients : ["Mozzarella Cheese", "Breadcrumbs", "Marinara Sauce", "Vegetable Oil"],
-    //        Size: "6 pieces",
-    //        img: pictwo
-    //         }
-    //         ]
-    //    },
-    //    {
-    //        categoryName  : "Pizza",
-    //        cat : [
-    //            {
-    //      id:2,
-    //        name: "Sticks Mozzarella",
-    //        price : 7.99,
-    //        smallDescription : "Crispy, golden-fried mozzarella sticks served with marinara sauce.",
-    //        largeDescription : 
-    //        "Melt-in-your-mouth mozzarella cheese coated in a crispy golden breadcrumb crust, deep-fried to perfection. Served with a side of house-made marinara sauce for dipping.",
-    //        Ingredients : ["Mozzarella Cheese", "Breadcrumbs", "Marinara Sauce", "Vegetable Oil"],
-    //        Size: "6 pieces",
-    //        img: pictwo
-    //        }
-    //        ]
-    //    }
-   
-   
-   
-     
-    //    ]
+
 

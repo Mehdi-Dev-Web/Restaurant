@@ -15,12 +15,14 @@ const Footer = lazy(()=>import("./component/Footer.tsx"))
 const Reset = lazy(()=>import("./pages/Reset.tsx"))
 const About = lazy(()=>import("./pages/About.tsx"))
 const Dashboard = lazy(()=>import("./pages/Dashboard.tsx"))
+const ScrollToTop = lazy(()=>import("./component/ScrollToTop.tsx"))
 function App() {
 
   return (
     <>
      
        <Suspense fallback={<div className="w-full h-screen bg-lightBlack flex justify-center items-center"><p className="text-orange">Loading...</p></div>}>
+        <ScrollToTop />
          <Routes>
            <Route path="/" element={<Home />} />
            <Route path="/booking" element={<Booking />} /> 
@@ -42,3 +44,4 @@ function App() {
 }
 
 export default App
+// VITE_PASSWORD= d&YQg7f4*xDJgfQ

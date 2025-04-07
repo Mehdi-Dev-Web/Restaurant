@@ -1,3 +1,5 @@
+//? this is the reset page for the user to reset their password i'm still working on it
+
 import { useState } from "react";
 import supabase from "../data/supa"
 import { useNavigate } from "react-router-dom";

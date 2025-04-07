@@ -1,318 +1,148 @@
-
-import {  useState } from "react";
+import { useState,useEffect } from "react"
+import DishTable from "../dashboardcomponent/Table"
+import { BiFoodMenu } from "react-icons/bi";
+import { IoMdAddCircleOutline } from "react-icons/io";
+import { FaRegUser } from "react-icons/fa";
+import { HiOutlineUsers } from "react-icons/hi";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { MdOutlineContactPhone } from "react-icons/md";
+import Contact from "../dashboardcomponent/Contact";
 import supabase from "../data/supa";
-import { useEffect } from "react";
+import Reservation from "../dashboardcomponent/Reservation";
+import Add from "../dashboardcomponent/Add";
+
+//? this is the dashboard page for the admin to manage the website and i'm still working on it
+
+type Tcontact = {
+  id:number;
+  name : string;
+  email : string;
+  message : string;
+}
+type Treservation = {
+  id:number;
+  name : string;
+  members : number;
+  date : string;
+}
+
 function Dashboard() {
-  type acc = {
-   id:number
-    category:string,
-    name:string,
-    price:number,
-    pic:File
-  }
-  const [data , setData] = useState<acc[]>([])
-  const [cate , setCate]= useState("")
-  const [value, setValue]= useState("")
-  const [searching ]= useState("type")
-  const [iid, setIid] = useState<number | undefined>()
-  const [category,setCategory] = useState("")
-  const [name,setName] = useState("")
-  const [pic,setPic] = useState<File | null>(null)
-  const [price, setPrice] = useState<number | string>()
-  
-  useEffect(() => {
-    tryy();
-  }, []);
-
- const tryy = async()=>{
-   const { data: Dishes, error } = await supabase
-   .from('Dishes')
-   .select('*')
-    
-   if(error){
-    return console.log(error.message)
-   }
-   if(Dishes){
-    setData(Dishes)
-   }
-
- }
-
-  const sortt = data.reduce((acc: Record<string, acc[]>, item: acc) => {
-    if (!acc[item.category]) {
-      acc[item.category] = [];
-    }
-    acc[item.category].push(item);
-    return acc;
-  }, {});
- 
-  const hundle = (cat : string)=>{
-  setCate(cat == "all" ? "" : cat) 
-  
-
-  }
-  const typeFilter = searching === "type"? 
-                    cate === "" || cate === "all" 
-                    ? Object.entries(sortt) 
-                    :Object.entries(sortt).filter(([category]) => category == cate)
-                    :Object.entries(sortt).map(([category, items]) => [
-                      category,
-                      items.filter((item) =>
-                        item.name.toLowerCase().includes(value.toLowerCase())
-                      ),
-                    ])
-                    .filter(([_, items]) => items.length > 0);
-
-  //                 const handlechange = async(e: { preventDefault: () => void; })=>{
-  //                   e.preventDefault();
-  //                   if(name == "" && category == "" && price == ""){
-  //                     return console.log("please fill the inp")
-  //                   }
-  //                   const { data:update, error } = await supabase
-  // .from('Dishes')
-  // .upsert({ id: iid, category , name , price : Number(price) })
-  // .select()
-
-  // if(error){
-
-  //   return console.log(error.message)
-  // }
-  // if(update){
-  //   console.log("good")
-  //   tryy(); // Refresh data
-  //   setIid(undefined);
-  //   setCategory("");
-  //   setName("");
-  //   setPrice("");
-  // }
-
-  //                 }
-                  
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setPic(e.target.files[0]);
-    }
-  };
-  const uploadImage = async (file: File) => {
-    const filePath = `dishes/${Date.now()}-${file.name}`;
-    const { data, error } = await supabase.storage
-      .from("Dishes")
-      .upload(filePath, file);
-
-    if (error) {
-      console.error("Upload failed:", error.message);
-      return null;
-    }
-    if (data) {
-      console.log("the image is uploaded");
-     
-    }
-
-    // Get public URL
-    const { data: publicUrlData } = await supabase.storage
-      .from("Dishes")
-      .getPublicUrl(filePath);
-
-    return publicUrlData.publicUrl;
-  };
-
-
-                  const deleteitem = async(id:number)=>{
-                    const response = await supabase
-                    .from('Dishes')
-                    .delete()
-                    .eq('id', id)
-                    if(response){
-                      console.log(response)
-                      tryy()
-                    }
-                  }
-                  const handleadd = async(e: { preventDefault: () => void; })=>{
-                    e.preventDefault()
-                    
-    if (!pic) {
-      console.error("No file selected for upload.");
-      return;
-    }
-    const imageUrl = await uploadImage(pic);
-    if (!imageUrl) return;
-
-                    const { error } = await supabase
-  .from('Dishes')
-  .insert({  category,name ,price:Number(price),pic:imageUrl })
-  if(error){
-    console.log(error.message)
-    tryy()
-    setCategory("");
-    setName("");
-    setPrice("");
-    setPic(null);
-  }
-                  }
-
-                
-                   
-  return (
-    <div className="w-full h-screen bg-lightBlack text-white p-4">
-      <button onClick={()=>hundle("all")}>all</button>
-      <button onClick={()=>hundle("pizza")}>pizza</button>
-      <button onClick={()=>hundle("tacos")}>tacos</button>
-      <input type="text" name="" id="" value={value} onChange={(e)=>setValue(e.target.value)}  />
-     {typeFilter.map(([category, items], index) => (
-          <div key={index}>
-               
-                 <h3>{category as string}</h3>
-                 {(items as acc[]).map((subItem: acc, subIndex: number) => (
-                   <div key={subIndex} className="mt-3"> {" "} {subItem.name}  {" "} {subItem.price} <span onClick={()=>setIid(subItem.id)} className="bg-orange text-black p-1"> update </span> <span onClick={()=>deleteitem(subItem.id)} className="bg-red-500 text-black p-1"> delet </span></div>
-                   
-                 ))}
-                 </div>
-     ))}
-     <form action="" onSubmit={handleadd}>
-     <input type="text" name="" id="" placeholder="caty" value={category} onChange={(e)=>setCategory(e.target.value)} />
-     <input type="text" name="" id="" placeholder="name" value={name} onChange={(e)=>setName(e.target.value)}/>
-     <input type="number" name="" id="" placeholder="price" value={price} onChange={(e)=>setPrice(e.target.value)}/>
-     <input type="file" name="" id="" placeholder="price"  onChange={handleFileChange}/>
-     <button type="submit" className="bg-orange text-black p-1">change</button>
-     </form>
-    </div>
+  // contact
+     const [type, setType] = useState("dishes")
+     const [message , setMessage] = useState<Tcontact[]>([])
+     const Fetchcontact  = async()=>{
+        const { data: contact, error } = await supabase
+        .from('contact')
+        .select('*')
+        if(error){
+          return console.log(error.message)
+        }
+        if(contact){
+          setMessage(contact)
+        }
+     }
    
+    //  reservation
+    const [reservation , setReservation] = useState<Treservation[]>([])
+    const Fetchreservation  = async()=>{
+      const { data: reservation, error } = await supabase
+      .from('reservation')
+      .select('*')
+      if(error){
+        return console.log(error.message)
+      }
+      if(reservation){
+        setReservation(reservation)
+      }
+    }
+    
+    useEffect(() => {
+      Fetchcontact()
+      Fetchreservation()
+     },[])
+  return (
+
+    <div className="w-full h-screen bg-lightBlack flex justify-center items-center">
+      {/* left side  navbar for the dashboard */}
+   
+      <div className="bg-orange flex-1 w-full flex flex-col h-full">
+      <div className="w-full h-[60px] flex justify-center items-center text-2xl font-semibold text-black"> Dashboard </div>
+      <hr className="text-black bg-black"/>
+        <button onClick={()=>setType("dishes")} className="text-black text-lg ml-8 mt-8 flex items-center gap-2.5 cursor-pointer">
+          <BiFoodMenu className="text-2xl" />
+          <p>Dishes</p>
+          </button>
+        <button onClick={()=>setType("add")} className="text-black text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+          <IoMdAddCircleOutline className="text-2xl" />
+          <p>New Dish</p>
+          </button>
+        <button onClick={()=>setType("user")} className="text-black text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+          <FaRegUser className="text-2xl" />
+          <p>Users</p>
+          </button>
+        <button onClick={()=>setType("employee")} className="text-black hover:border-black hover:border-r-2  text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+          <HiOutlineUsers className="text-2xl " />
+          <p>Employee</p>
+          </button>
+        <button onClick={()=>setType("Reservation")} className="text-black text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+          <IoMdNotificationsOutline className="text-2xl" />
+          <p>Resevation</p>
+          </button>
+        <button onClick={()=>setType("contact")} className="text-black text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+          <MdOutlineContactPhone className="text-2xl" />
+          <p>Contact</p>
+          </button>
+      </div>
+
+      {/* right side */}
+      <div className="bg-lightBlack flex-5 h-full px-4   w-full overflow-y-scroll " style={{scrollbarWidth: "none"}}>
+         {type === "dishes" &&  <DishTable/>}
+         {type === "contact" &&
+             <div className="w-full h-full overflow-y-scroll" style={{scrollbarWidth: "none"}}>
+              <div className="w-full grid grid-cols-12 gap-2 px-4 rounded-lg py-4">
+              <div className='col-span-1 flex items-center text-white'>
+                Id
+              </div>
+              <div className='col-span-3 flex items-center text-white'>
+                Name
+              </div>
+              <div className='col-span-3 flex items-center text-white'>
+                Email
+              </div>
+              <div className='col-span-5 flex items-center text-white'>
+                Message
+              </div>
+              </div>
+              {message.map((item, index) => (
+               <Contact key={index} id={item.id} name={item.name} email={item.email} message={item.message} />
+             ))}
+             </div>
+        }
+        {type === "Reservation" &&
+        <div className="w-full h-full flex flex-col gap-3 overflow-y-scroll" style={{scrollbarWidth: "none"}}>
+           <div className="w-full grid grid-cols-9 gap-2 px-4 rounded-lg py-4">
+              <div className='col-span-1 flex items-center text-white'>
+                Id
+              </div>
+              <div className='col-span-2 flex items-center text-white'>
+                Name
+              </div>
+              <div className='col-span-2 flex items-center text-white'>
+                Members
+              </div>
+              <div className='col-span-3 flex items-center text-white'>
+                Date
+              </div>
+              </div>
+          {reservation.map((item,index)=>(
+             <Reservation key={index} index={index} reservations={[item]}/>
+          ))}
+        </div>
+         }
+         {type === "add" && <Add />}
+      </div>
+    </div>
   )
 }
 
 export default Dashboard
-//!
-// import { useState, useEffect } from "react";
-// import supabase from "../data/supa";
-
-// function Dashboard() {
-//   type acc = {
-//     id: number;
-//     category: string;
-//     name: string;
-//     price: number;
-//     pic: string; // Store the image URL
-//   };
-
-//   const [data, setData] = useState<acc[]>([]);
-//   const [category, setCategory] = useState("");
-//   const [name, setName] = useState("");
-//   const [pic, setPic] = useState<File | null>(null);
-//   const [price, setPrice] = useState<number | string>("");
-
-//   useEffect(() => {
-//     fetchDishes();
-//   }, []);
-
-//   // Fetch data from Supabase
-//   const fetchDishes = async () => {
-//     const { data: Dishes, error } = await supabase.from("Dishes").select("*");
-//     if (error) {
-//       console.error("Error fetching dishes:", error.message);
-//       return;
-//     }
-//     setData(Dishes);
-//   };
-
-//   // Handle file selection
-//   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     if (e.target.files && e.target.files[0]) {
-//       setPic(e.target.files[0]);
-//     }
-//   };
-
-//   // Upload image to Supabase Storage
-//   const uploadImage = async (file: File) => {
-//     const filePath = `dishes/${Date.now()}-${file.name}`;
-//     const { data, error } = await supabase.storage.from("images").upload(filePath, file);
-
-//     if (error) {
-//       console.error("Image upload failed:", error.message);
-//       return null;
-//     }
-//     if (data) {
-//       console.error("correct");
-    
-//     }
-
-//     // Get the public URL
-//     const { publicUrl } = supabase.storage.from("images").getPublicUrl(filePath);
-//     return publicUrl;
-//   };
-
-//   // Insert dish into database
-//   const handleAdd = async (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     if (!pic) {
-//       console.error("No file selected for upload.");
-//       return;
-//     }
-
-//     const imageUrl = await uploadImage(pic);
-//     if (!imageUrl) return;
-
-//     const { error } = await supabase.from("Dishes").insert({
-//       category,
-//       name,
-//       price: Number(price),
-//       pic: imageUrl, // Save image URL in database
-//     });
-
-//     if (error) {
-//       console.error("Insert error:", error.message);
-//       return;
-//     }
-
-//     // Refresh the list
-//     fetchDishes();
-//     setCategory("");
-//     setName("");
-//     setPrice("");
-//     setPic(null);
-//   };
-
-//   return (
-//     <div className="w-full h-screen bg-lightBlack text-white p-4">
-//       <form onSubmit={handleAdd} className="space-y-4">
-//         <input
-//           type="text"
-//           placeholder="Category (e.g., Pizza)"
-//           value={category}
-//           onChange={(e) => setCategory(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="text"
-//           placeholder="Dish Name (e.g., Margherita)"
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//           required
-//         />
-//         <input
-//           type="number"
-//           placeholder="Price (e.g., 10.99)"
-//           value={price}
-//           onChange={(e) => setPrice(e.target.value)}
-//           required
-//         />
-//         <input type="file" accept="image/*" onChange={handleFileChange} required />
-//         <button type="submit" className="bg-orange text-black p-2 rounded">
-//           Add Dish
-//         </button>
-//       </form>
-
-//       <div className="mt-6">
-//         {data.map((dish) => (
-//           <div key={dish.id} className="border p-4 my-2">
-//             <h3>{dish.category}</h3>
-//             <p>{dish.name} - ${dish.price}</p>
-//             {dish.pic && <img src={dish.pic} alt={dish.name} width={100} />}
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Dashboard;

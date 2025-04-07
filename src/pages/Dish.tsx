@@ -1,10 +1,11 @@
 import { lazy, useEffect, useState } from "react";
-import {  useParams } from "react-router-dom";
+import {  Link, useParams } from "react-router-dom";
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import supabase from "../data/supa";
 const MemoizedSimilar = lazy(()=>import("../component/Similar"))
 
+//? this is the dish page that is used to display a specific dish and details
 
 function Dish() {
 
@@ -56,113 +57,104 @@ const similar = data
   .filter((dish) => dish.id !== dishId).slice(0, 3);
 
     return (
-      <div className="w-full min-h-screen bg-lightBlack flex flex-col items-center px-4 pb-12 md:px-0">
-      <div className="w-full max-w-6xl min-h-screen flex flex-col md:flex-row md:items-center gap-6">
-        <img
-          src={dish.img}
-          loading="lazy"
-          alt="pic"
-          className="w-full h-[500px] md:w-1/2 object-cover flex-1"
-        />
-        {/* details about dish */}
-        <div className="flex-1 bg-lightBlack flex gap-6 flex-col px-4 md:px-6">
-          <h1 className="text-4xl font-Poppins md:text-5xl text-orange font-medium">{dish.name}</h1>
-         
-          <p className="text-white text-sm">{dish.largeDescription}</p>
-          <p className="text-white">
-            <span className="text-lg font-semibold">Ingredients:</span>{" "}
-            {dish.Ingredients?.map((item, index) => (
-              <span key={index} className="text-gray-300">
-                {item}
-               
-              </span>
-            ))}
-          </p>
-          <p className="text-white">
-            <span className="text-lg font-semibold">Cooking Time:</span> 20 Min
-          </p>
-          <p className="text-white">
-            <span className="text-lg font-semibold">Price:</span> ${dish.price}
-          </p>
-          <div className="flex items-center gap-2">
-            <p className="text-white text-lg">Rating:</p>
-            <Stack spacing={1}>
-              <Rating
-                name="half-rating-read"
-                defaultValue={4}
-                precision={0.5}
-                readOnly
-                sx={{ stroke: "white", strokeWidth: 1 }}
-              />
-            </Stack>
+      <div className="w-full min-h-screen bg-gradient-to-b from-lightBlack to-black flex flex-col items-center px-4 pb-12 md:px-0">
+        <div className="w-full max-w-6xl min-h-screen flex flex-col md:flex-row md:items-start gap-8 pt-6">
+          {/* Image Container with Shadow and Border */}
+          <div className="md:w-1/2 flex-1">
+            <img
+              src={dish.img}
+              loading="lazy"
+              alt={dish.name}
+              className="w-full h-[550px] object-cover rounded-2xl shadow-2xl transition-transform duration-300 hover:scale-[1.02]"
+            />
+            {/* <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-2xl"/> */}
           </div>
-          <div className="w-full flex gap-3 items-center">
-            <button className="w-[140px] text-center bg-orange text-black py-3 rounded-md text-lg font-semibold">
-              Reservation
-            </button>
-            <button className="w-[140px] text-center bg-transparent border-2 border-white text-white py-3 rounded-md text-lg font-semibold">
-              Menu
-            </button>
+
+          {/* Details Container */}
+          <div className="flex-1 bg-black/20 backdrop-blur-sm rounded-2xl p-6 flex gap-8 flex-col">
+            <div className="space-y-4">
+              <h1 className="text-4xl font-Poppins md:text-5xl text-orange font-medium 
+                           bg-gradient-to-r from-orange to-yellow-400 bg-clip-text text-transparent">
+                {dish.name}
+              </h1>
+              
+              <p className="text-white/90 text-base leading-relaxed">
+                {dish.largeDescription}
+              </p>
+            </div>
+
+            {/* Ingredients Section */}
+            <div className="bg-white/5 rounded-xl p-6 space-y-2">
+              <h2 className="text-lg font-semibold text-orange mb-3">Ingredients</h2>
+              <div className="flex flex-wrap gap-2">
+                {dish.Ingredients?.map((item, index) => (
+                  <span key={index} 
+                        className="px-3 py-1 bg-white/10 rounded-full text-gray-200 text-sm">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Info Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white/5 rounded-xl p-4">
+                <p className="text-gray-400 text-sm">Cooking Time</p>
+                <p className="text-white text-lg font-medium">20 Min</p>
+              </div>
+              <div className="bg-white/5 rounded-xl p-4">
+                <p className="text-gray-400 text-sm">Price</p>
+                <p className="text-white text-lg font-medium">${dish.price}</p>
+              </div>
+            </div>
+
+            {/* Rating Section */}
+            <div className="bg-white/5 rounded-xl p-4 flex items-center gap-4">
+              <p className="text-gray-400">Rating:</p>
+              <Stack spacing={1}>
+                <Rating
+                  name="half-rating-read"
+                  defaultValue={4}
+                  precision={0.5}
+                  readOnly
+                  sx={{ 
+                    '& .MuiRating-iconFilled': {
+                      color: '#f97316',
+                    },
+                    '& .MuiRating-iconEmpty': {
+                      color: 'rgba(255, 255, 255, 0.3)',
+                    }
+                  }}
+                />
+              </Stack>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex gap-4 mt-4">
+              <Link to="/booking"
+                    className="flex-1 text-center bg-gradient-to-r from-orange to-yellow-500 text-black py-4 
+                    rounded-xl text-lg font-semibold transition-transform hover:scale-105 
+                    hover:shadow-lg cursor-pointer hover:shadow-orange/20">
+              <button >
+                Make Reservation
+              </button>
+              </Link>
+
+              <Link to="menu"
+                     className="flex-1 text-center bg-white/10 border border-white/20 text-white py-4 
+                     rounded-xl text-lg font-semibold transition-all hover:bg-white/20 cursor-pointer" >
+              <button>
+                View Menu
+              </button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Similar Dishes */}
-    <MemoizedSimilar similar={similar}/>
-    </div>
+        {/* Similar Dishes */}
+        <MemoizedSimilar similar={similar}/>
+      </div>
     );
 }
 
 export default Dish;
-{/* <div className="w-full min-h-screen bg-lightBlack">
-<div className="bg-lightBlack w-full  min-h-screen flex justify-center gap-6 flex-col md:flex-row md:items-center   ">
-  <img src={dish.img} alt="" className="w-full object-cover flex-1" />
-  <div className=" flex-1 md:flex-2  bg-lightBlack flex flex-col md:px-0  px-6"> 
-    <h1 className="text-4xl font-Poppins text-orange font-medium">{dish.name}</h1>
-    <div className="w-full h-6"></div>
-    <p className="text-white text-sm ">{dish.largeDescription}</p>
-    <div className="w-full h-6"></div>
-    <p className="text-white"> <span className="text-lg">Ingredients :</span> {dish.Ingredients?.map((item,index)=>(
-        <span key={index} className="text-gray-300">{item}, </span>
-    ))}</p>
-    <div className="w-full h-6"></div>
-
-    <p className="text-white"><span className="text-lg">Cooking Time :</span> 20Min </p>
-
-    <div className="w-full h-6"></div>
-    <p className="text-white"><span className="text-lg">Price :</span> $ {dish.price} </p>
-    <div className="w-full h-6"></div>
-    <div className="flex items-center gap-2 ">
-      <p className="text-white text-lg">Rating :</p>
-    <Stack spacing={1}>
-     <Rating name="half-rating-read" defaultValue={4} precision={.5} readOnly     sx={{
-stroke: 'white', strokeWidth: 1
-}}/>
-   </Stack>
-   </div>
-    <div className="w-full h-10"></div>
-      <div className="w-full flex  gap-3 items-center ">
-
-    <button className="w-[140px] text-center bg-orange text-white py-3 rounded-md text-lg font-semibold">Reservation</button>
-    <button className="w-[140px] text-center bg-transparent border-2 border-orange text-white py-3 rounded-md text-lg font-semibold">Menu</button>
-      </div>
-  </div>
-  {/* // similer dishes */}
-
-// </div>
-//         <div className=" w-full flex flex-col gap-6 px-6">
-//         <h1 className="text-2xl font-Poppins text-orange font-medium">Similer Dishes</h1>
-//     {similer.map((sim,index)=>(
-//      <Link onClick={handlescrolling} to={`/menu/${sim.type}/${sim.id}`}>
-//        <div key={index} className="w-full flex flex-col gap-5 mt-2.5 bg-white">
-//          <img src={sim.img} alt="" className="w-full object-cover" />
-//          <div className="flex justify-between items-center px-4 pb-4">
-//          <h1 className="text-lg font-semibold">{sim.name}</h1>
-//          <p>{sim.price}</p>
-//          </div>
-//        </div>
-//        </Link>
-//     ))}
-
-//         </div>
-//         </div> */}

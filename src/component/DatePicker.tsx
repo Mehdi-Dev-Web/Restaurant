@@ -50,10 +50,10 @@ function DatePicker({ setDate }: PropType ) {
               color: "yellow",
             },
             "& .MuiIconButton-root": {
-              color: "white", // Change the color of the button containing the icon
+              color: "white", 
             },
             "& .MuiSvgIcon-root": {
-              color: "white !important", // Force change the icon color
+              color: "white !important",
             },
           },
         },

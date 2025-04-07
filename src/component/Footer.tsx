@@ -1,5 +1,6 @@
 
 function Footer() {
+    // only for testing and i'm gonna change it later
   return (
     <div className='w-full h-[80vh] relative bg-orange'style={{
         clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)"

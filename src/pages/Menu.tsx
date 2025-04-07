@@ -17,9 +17,9 @@ function Menu() {
         <div className="text-orange  text-6xl translate-[-50%] font-Lobster z-10 absolute top-1/2 left-1/2"> Menu</div>
 
       </div>
-  <div className="w-full px-3 md:px-24 mt-3">
-       <Dishes />
-  </div>
+       <div className="w-full px-3 md:px-24 mt-3">
+        <Dishes />
+       </div>
     </div>
   )
 }

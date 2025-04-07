@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+//? this is a component that is used to display similar dishes
+
 interface Dish {
     id: number;
     name: string;
@@ -22,6 +24,7 @@ const Similar: React.FC<SimilarProps> = ({ similar }) => {
     const handlescrolling = ()=>{
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
+
   return (
       <div className="w-full max-w-6xl flex flex-col gap-6 px-4 md:px-0 ">
         <h1 className="text-4xl font-Poppins text-white font-medium">Similar Dishes</h1>
@@ -42,5 +45,6 @@ const Similar: React.FC<SimilarProps> = ({ similar }) => {
   )
 }
 
+//? memoized the component to prevent re-rendering
 const MemoizedSimilar = React.memo(Similar);
 export default MemoizedSimilar;

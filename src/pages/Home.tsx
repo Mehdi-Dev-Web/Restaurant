@@ -2,7 +2,8 @@
 
 import  { lazy, Suspense } from "react";
 // import Training from "../component/Training";
-
+import pic from  '../assets/white-marble-stone-background-texture-pattern-free-photo.webp'
+import Category from "../component/Category";
 // Dynamic imports using React.lazy
 const AboutSection = lazy(() => import("../component/AboutSection"));
 const Ascrolling = lazy(() => import("../component/Ascrolling"));
@@ -19,27 +20,29 @@ function Home() {
     <div className="w-full min-h-screen  bg-lightBlack">
         <Navbar />
         <div className="div w-full flex justify-center relative items-center h-[calc(100vh-82px)] bg-orange flex-col md:flex-row-reverse  ">
-          {/* <span className=" opacity-5 absolute w-full h-full left-0 top-0"> 
-            <img src={bg} className="w-full h-full object-cover" alt="" loading="lazy" />
-          </span> */}
+        <div 
+             className="absolute inset-0 bg-cover bg-center opacity-6 z-0" 
+             style={{ backgroundImage: `url(${pic})` }}
+        ></div>
+         
           <div className="flex-1 h-full w-full  ">
           <Slider />
           </div>
-          <div className="flex-1 h-full w-full flex justify-center items-center   ">
+          <div className="flex-1 h-full w-full flex justify-center items-center z-10   ">
         <Herotitle />
           </div>
         </div>
         <AboutSection />
+        <Category />
         <Faq />
         <div id="contact">
-  <Contact />
-</div>
+         <Contact />
+       </div>
        <div id="review">
 
         <Ascrolling />
        </div>
        
-        {/* <Training /> */}
         
     </div>
     </Suspense>

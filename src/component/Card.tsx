@@ -2,9 +2,12 @@ import { useTransform, motion, MotionValue } from "framer-motion"
 import pic from "../assets/634961cf8f900561629af98d_Tobi-new.jpg"
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+
 function Card({i,typo,range,scrollYProgress}: {title: string, content: string, color: string,i:number,typo:number,range:number[],scrollYProgress: MotionValue<number>}) {
+  
   const scale = useTransform(scrollYProgress,range,[1,typo])
-    return (
+  // only for testing
+  return (
     <div className="w-full h-screen justify-center flex items-center sticky top-0 ">
         <motion.div className="w-[350px] sm:w-[500px] md:w-[760px] max-h-[430px] md:h-[350px] border-orange border-[1px] rounded-xl relative flex flex-col md:flex-row  bg-lightBlack text-white " style={{scale,top: `calc(-10% + ${i * 25}px)`}}>
          <div className="flex-1/3 h-full overflow-hidden flex justify-center items-center">
