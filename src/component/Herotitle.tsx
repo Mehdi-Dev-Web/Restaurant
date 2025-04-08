@@ -26,7 +26,7 @@ function Herotitle() {
           </p>
 
           <Link to="/booking" >
-          <button className="px-8 text-sm py-2.5 rounded-md bg-black text-orange mt-11 flex justify-center gap-2 items-center cursor-pointer  ">
+          <button className="py-3 px-8 text-base font-medium rounded-md bg-black text-orange mt-11 flex justify-center gap-2 items-center cursor-pointer  ">
           {/* // add an animation to the button */}
           <ShinyText text="book a table" disabled={false} speed={3} className='custom-class' />
             </button>

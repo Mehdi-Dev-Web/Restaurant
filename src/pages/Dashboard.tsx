@@ -68,27 +68,27 @@ function Dashboard() {
       <div className="bg-orange flex-1 w-full flex flex-col h-full">
       <div className="w-full h-[60px] flex justify-center items-center text-2xl font-semibold text-black"> Dashboard </div>
       <hr className="text-black bg-black"/>
-        <button onClick={()=>setType("dishes")} className="text-black text-lg ml-8 mt-8 flex items-center gap-2.5 cursor-pointer">
+        <button onClick={()=>setType("dishes")} className="text-black hover:border-black hover:border-r-3 text-lg ml-8 mt-8 flex items-center gap-2.5 cursor-pointer">
           <BiFoodMenu className="text-2xl" />
           <p>Dishes</p>
           </button>
-        <button onClick={()=>setType("add")} className="text-black text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+        <button onClick={()=>setType("add")} className="text-black hover:border-black hover:border-r-3 text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
           <IoMdAddCircleOutline className="text-2xl" />
           <p>New Dish</p>
           </button>
-        <button onClick={()=>setType("user")} className="text-black text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+        <button onClick={()=>setType("user")} className="text-black hover:border-black hover:border-r-3 text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
           <FaRegUser className="text-2xl" />
           <p>Users</p>
           </button>
-        <button onClick={()=>setType("employee")} className="text-black hover:border-black hover:border-r-2  text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+        <button onClick={()=>setType("employee")} className="text-black  hover:border-black hover:border-r-3   text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
           <HiOutlineUsers className="text-2xl " />
           <p>Employee</p>
           </button>
-        <button onClick={()=>setType("Reservation")} className="text-black text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+        <button onClick={()=>setType("Reservation")} className="text-black hover:border-black hover:border-r-3 text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
           <IoMdNotificationsOutline className="text-2xl" />
           <p>Resevation</p>
           </button>
-        <button onClick={()=>setType("contact")} className="text-black text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
+        <button onClick={()=>setType("contact")} className="text-black hover:border-black hover:border-r-3 text-lg ml-8 mt-4 flex items-center gap-2.5 cursor-pointer">
           <MdOutlineContactPhone className="text-2xl" />
           <p>Contact</p>
           </button>

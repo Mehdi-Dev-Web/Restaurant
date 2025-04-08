@@ -122,7 +122,7 @@ function Contact() {
             type="submit"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full h-14 mt-8 bg-gray-900 text-white rounded-lg
+            className="w-full h-14 mt-8 bg-lightBlack text-white rounded-lg
                      font-semibold text-lg transition-all duration-200
                      hover:bg-black focus:outline-none focus:ring-2
                      focus:ring-black focus:ring-offset-2 focus:ring-offset-orange

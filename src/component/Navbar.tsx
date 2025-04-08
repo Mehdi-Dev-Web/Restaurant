@@ -82,11 +82,11 @@ function Navbar() {
       <ul className="hidden md:flex flex-1  font-normal   justify-end gap-4 items-center text-brown  ">
       
         <li className="cursor-pointer hover:border-b-[1px] hover:border-orange">
-         <a href="https://www.whatsapp.com/" className="text-black font-medium px-5 py-1.5 text-sm bg-orange rounded-md">+212 637476467</a> 
+         <a href="https://www.whatsapp.com/" className="text-black font-medium px-6 py-2 text-sm bg-orange rounded-md">+212 637476467</a> 
         </li>
         <li>
         <Link to="/login">
-        <FaRegUserCircle  className="text-white text-2xl cursor-pointer"/>
+        <FaRegUserCircle  className="text-white text-3xl hover:text-orange cursor-pointer"/>
         </Link>
         </li>
       </ul>

@@ -1,6 +1,6 @@
-import picOne from "../assets/newone.jpg";
+import picThree from "../assets/newone.jpg";
 import picTwo from "../assets/steptodown.com210542.jpg";
-import picThree from "../assets/pexels-pixabay-260922.jpg";
+import picOne from "../assets/pexels-pixabay-260922.jpg";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
