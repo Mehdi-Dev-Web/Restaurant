@@ -10,6 +10,7 @@ import Contact from "../dashboardcomponent/Contact";
 import supabase from "../data/supa";
 import Reservation from "../dashboardcomponent/Reservation";
 import Add from "../dashboardcomponent/Add";
+import Users from "../dashboardcomponent/Users";
 
 //? this is the dashboard page for the admin to manage the website and i'm still working on it
 
@@ -140,6 +141,7 @@ function Dashboard() {
         </div>
          }
          {type === "add" && <Add />}
+         {type === "user" && <Users />}
       </div>
     </div>
   )
